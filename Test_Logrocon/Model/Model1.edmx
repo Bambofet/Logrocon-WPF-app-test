@@ -19,7 +19,7 @@
             <PropertyRef Name="Number" />
           </Key>
           <Property Name="Number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__CustomerId">
@@ -61,7 +61,7 @@
             <PropertyRef Name="Number" />
           </Key>
           <Property Name="Number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customers" Relationship="Self.FK__CustomerId" FromRole="Orders" ToRole="Customers" />
         </EntityType>

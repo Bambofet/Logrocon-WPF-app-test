@@ -170,10 +170,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Database1.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Database1_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
     <Content Include="Model\Model1.Context.tt">
