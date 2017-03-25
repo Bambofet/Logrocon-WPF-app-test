@@ -132,12 +132,15 @@ namespace Test_Logrocon
         //Edit Selected order Order by pressing button
         private void EditOrderButton_Click(object sender, RoutedEventArgs e)
         {
+            if(viewModel._selectedOrder!=null)
             EditOrder();
         }
         //Edit Selected order Order by double click
         private void OrdersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            try { EditOrder();}
+            try {
+                if (viewModel._selectedOrder != null)
+                    EditOrder();}
             catch { }
         }
         //Edit selected Order

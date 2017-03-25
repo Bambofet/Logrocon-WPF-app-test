@@ -243,6 +243,7 @@ namespace Test_Logrocon.ViewModel
         /// </summary>
         public void AddOrder()
         {
+            
             Orders tempOrd = new Orders
             {
                 CustomerId = _selectedCustomer.Id,
@@ -281,7 +282,10 @@ namespace Test_Logrocon.ViewModel
         /// </summary>
         public void EditOrder()
         {
-            
+            if(_selectedOrd == null)
+            {
+                return;
+            }
 
             Orders tempOrd = new Orders()
             {
