@@ -10,14 +10,16 @@ using System.Data.Entity;
 
 namespace Test_Logrocon.ViewModel
 {
-    class AddCustomerViewModel : IDataErrorInfo, INotifyPropertyChanged
+    class AddCustomerViewModel : INotifyPropertyChanged
     {
        
         private string _custName;
         private string _custAddress;
         private bool _custVip;
 
-
+        /// <summary>
+        /// Selected Customer Vip status
+        /// </summary>
         public bool _CustomerVip
         {
             get { return this._custVip; }
@@ -28,6 +30,10 @@ namespace Test_Logrocon.ViewModel
             }
         }
 
+
+        /// <summary>
+        /// Selected Customer Name
+        /// </summary>
         public string _CustomerName
         {
             get { return this._custName; }
@@ -38,6 +44,10 @@ namespace Test_Logrocon.ViewModel
             }
         }
 
+
+        /// <summary>
+        /// Selected Customer Address
+        /// </summary>
         public string _CustomerAddress
         {
             get { return this._custAddress; }
@@ -49,34 +59,9 @@ namespace Test_Logrocon.ViewModel
             }
         }
 
+               
 
-
-        // IDataError
-        public string this[string columnName]
-        {
-            get
-            {
-                string msg = null;
-                switch(columnName)
-                {
-                    case "_CustomerName":
-                        if (_CustomerName == null)
-                            msg = "Name is required";
-                        else if(_CustomerName.Length>5)
-                            msg = "Too Long";
-                        break;
-                }
-                return msg;
-            }
-        }
-
-        //public string Error => throw new NotImplementedException();
-        public string Error
-        {
-            get;
-        }
-
-        //INotify
+        //INotify implimentation
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(string propertyName)
@@ -90,7 +75,9 @@ namespace Test_Logrocon.ViewModel
         }
 
 
-
+        /// <summary>
+        /// Add new Customer into Data Base
+        /// </summary>
         public void AddCustomer()
         {
             Customers temp = new Customers

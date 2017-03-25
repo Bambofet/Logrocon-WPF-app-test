@@ -9,12 +9,8 @@
         x:Name="mainW"
         Title="MainWindow" Height="705" Width="890" Loaded="Window_Loaded">
     <Grid>
-        <DataGrid IsReadOnly="True" CanUserAddRows="False" SelectedItem="{Binding Path=_selectedCustomer}" ItemsSource="{Binding Path=_Customers,Mode=TwoWay}" SelectedCellsChanged="CustomersList_SelectedCellsChanged" AutoGenerateColumns="False" x:Name="CustomersList" HorizontalAlignment="Left" Height="521" Margin="49,46,0,0" VerticalAlignment="Top"  Width="363" IsSynchronizedWithCurrentItem="False"  HeadersVisibility="Column">
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader">
-                    <EventSetter Event="Click" Handler="columnHeader_Click"></EventSetter>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
+        <DataGrid  KeyUp="DeleteCustomer_KeyUp" IsReadOnly="True" CanUserDeleteRows="False" CanUserAddRows="False" SelectedItem="{Binding Path=_selectedCustomer}" ItemsSource="{Binding Path=_Customers,Mode=TwoWay}" SelectedCellsChanged="CustomersList_SelectedCellsChanged" AutoGenerateColumns="False" x:Name="CustomersList" HorizontalAlignment="Left" Height="521" Margin="49,46,0,0" VerticalAlignment="Top"  Width="363" IsSynchronizedWithCurrentItem="False"  HeadersVisibility="Column">
+          
 
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id, Mode=TwoWay}"  Header="Id"/>
@@ -36,37 +32,24 @@
            
             
 
-            <DataGrid.ItemContainerStyle>
-                <Style TargetType="DataGridRow">
-                    <EventSetter Event="MouseDoubleClick" Handler="Row_Click"/>
-                </Style>
-            </DataGrid.ItemContainerStyle>
-
-            <!--<DataGrid.InputBindings>
-                <KeyBinding Command="{Binding DeleteComand}" Key="Delete" />
-
-            </DataGrid.InputBindings>-->
             
             
         </DataGrid>
 
-        <DataGrid SelectedItem="{Binding Path=_selectedOrder}" CanUserAddRows="False" ItemsSource="{Binding Path=_Orders}"  x:Name="OrdersList" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="521" Margin="470,46,0,0" VerticalAlignment="Top" Width="363" MouseDoubleClick="OrdersList_MouseDoubleClick">
+        <DataGrid IsReadOnly="True" CanUserDeleteRows="False" KeyUp="DeleteOrder_KeyUp" SelectedItem="{Binding Path=_selectedOrder}" CanUserAddRows="False" ItemsSource="{Binding Path=_Orders}"  x:Name="OrdersList" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="521" Margin="470,46,0,0" VerticalAlignment="Top" Width="363" MouseDoubleClick="OrdersList_MouseDoubleClick">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Number , Mode=OneWay}" Header="Number"/>
-                <DataGridTextColumn Binding="{Binding Description, Mode=OneWay}" Header="Description" Width="*"/>
-                <DataGridTextColumn Binding="{Binding CustomerId, Mode=OneWay}" Header="Customer ID"/>
+                <DataGridTextColumn Binding="{Binding Number , Mode=TwoWay}" Header="Number"/>
+                <DataGridTextColumn Binding="{Binding Description, Mode=TwoWay}" Header="Description" Width="*"/>
+                <!--<DataGridTextColumn Binding="{Binding CustomerId, Mode=TwoWay}" Header="Customer ID"/>-->
             </DataGrid.Columns>
             
             
 
-            
-        
-
         </DataGrid>
-        <Button x:Name="AddCustomer" Content="Add Customer" HorizontalAlignment="Left" Margin="49,597,0,0" VerticalAlignment="Top" Width="86" Click="AddCustomer_Click"/>
+        <Button x:Name="AddCustomerButton" Content="Add Customer" HorizontalAlignment="Left" Margin="49,597,0,0" VerticalAlignment="Top" Width="86" Click="AddCustomerButton_Click"/>
         <Button  x:Name="DeleteCustomerButton" Content="Delete Customer" HorizontalAlignment="Left" Margin="326,597,0,0" VerticalAlignment="Top" Width="86" Click="DeleteCustomerButton_Click"/>
-        <Button Content="Add Order" HorizontalAlignment="Left" Margin="470,597,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
-        <Button Content="Delete Order" HorizontalAlignment="Left" Margin="758,597,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button x:Name="AddOrderButton" Content="Add Order" HorizontalAlignment="Left" Margin="470,597,0,0" VerticalAlignment="Top" Width="75" Click="AddOrderButton_Click"/>
+        <Button  x:Name="DeleteOrderButton" Content="Delete Order" HorizontalAlignment="Left" Margin="758,597,0,0" VerticalAlignment="Top" Width="75" Click="DeleteOrderButton_Click" />
         <Button x:Name="EditOrderButton" Content="Edit Order" HorizontalAlignment="Left" Margin="618,597,0,0" VerticalAlignment="Top" Width="75" Click="EditOrderButton_Click"/>
     </Grid>
 </Window>

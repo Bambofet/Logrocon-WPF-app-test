@@ -32,119 +32,92 @@ namespace Test_Logrocon
 
         private CustomersViewModel viewModel;
 
+
         public MainWindow()
         {
-         
-
-
             InitializeComponent();
             viewModel = new CustomersViewModel();
             this.DataContext = viewModel;
-            
-            
         }
 
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void columnHeader_Click(object sender, RoutedEventArgs e)
-        {
-
-            //ColorVIP();
-        }
-
-        private void ColorVIP()
-        {
-
-            var itemSource = CustomersList.ItemsSource as IEnumerable;
-
-
-            Color color;
-            color = (Color)ColorConverter.ConvertFromString("#ffd700");
-
-
-            int i = 0;
-
-            foreach (var item in itemSource)
-            {
-                CustomersList.UpdateLayout();
-                 CustomersList.ScrollIntoView(CustomersList.Items);
-
-
-                var row = CustomersList.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
-               
-                if (row != null)
-                {
-                    try
-                    {
-                        CheckBox x = CustomersList.Columns[3].GetCellContent(CustomersList.Items[i]) as CheckBox;
-                        
-                        if (x != null)
-                            if (x.IsChecked.HasValue ? x.IsChecked.Value : false)
-                                row.Background = new SolidColorBrush(color);
-                        row = null;
-                    }
-
-                    catch
-                    {
-
-                    }
-                }
-                i++;
-            }
-        }
-
-        private void Row_Click(object sender, MouseButtonEventArgs e)
-        {
-            ColorVIP();
-        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-   
+            //Load all customers from database to DataGrid
             viewModel.LoadCustomers();
-      
         }
 
         private void CustomersList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-           
+            //Load Orders for selected customer
             viewModel.LoadOrders();
-
         }
 
-        private void AddCustomer_Click(object sender, RoutedEventArgs e)
+
+        private void AddCustomerButton_Click(object sender, RoutedEventArgs e)
         {
             AddCustomerWindow wind = new AddCustomerWindow();
+            //Delegate for updating DataGrid after customer was added to Data Base
             wind.DataChanged += AddCustomerWindow_DataChanged;
             wind.ShowDialog();
-            
         }
 
+        //Delegate for updating DataGrid after customer was added to Data Base
         private void AddCustomerWindow_DataChanged(object sender, EventArgs e)
         {
             viewModel.LoadCustomers();
         }
 
+        #region Delete Customer
+        //Delete selectd Customer by Button click
         private void DeleteCustomerButton_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteCustomer();
+        }
+        //Delete selected Customer by pressing "Delete' Key
+        private void DeleteCustomer_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                DeleteCustomer();
+            }
+        }
+        //Delete Selected Customer
+        private void DeleteCustomer()
         {
             MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure you want to delete this customer?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
                 viewModel.DeleteCustomer();
         }
+#endregion
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        #region Delete Order 
+
+        //Delete selected Order by bpressing button
+        private void DeleteOrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteOrder();
+        }
+        //Delete seleceted Order By pressing "Delete" Key
+        private void DeleteOrder_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                DeleteOrder();
+            }
+        }
+        //Delete selected order
+        private void DeleteOrder()
         {
             MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure you want to delete this order?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
                 viewModel.DeleteOrder();
         }
+#endregion
 
 
-        //Add Order
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        //Add New Order
+        private void AddOrderButton_Click(object sender, RoutedEventArgs e)
         {
             OrderWindow wind = new OrderWindow(true)
             {
@@ -153,29 +126,33 @@ namespace Test_Logrocon
             wind.ShowDialog();
         }
 
-        //Edit Order
+
+        #region Edit Oreder 
+
+        //Edit Selected order Order by pressing button
         private void EditOrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditOrder();
+        }
+        //Edit Selected order Order by double click
+        private void OrdersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try { EditOrder();}
+            catch { }
+        }
+        //Edit selected Order
+        private void EditOrder()
         {
             OrderWindow wind = new OrderWindow(false)
             {
                 DataContext = this.DataContext
-                
+
             };
             wind.ShowDialog();
         }
+        #endregion
 
-        private void OrdersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                OrderWindow wind = new OrderWindow(false)
-                {
-                    DataContext = this.DataContext
-
-                };
-                wind.ShowDialog();
-            }
-            catch { }
-        }
     }
+      
+    
 }

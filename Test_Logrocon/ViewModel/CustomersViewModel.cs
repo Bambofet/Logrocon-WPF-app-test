@@ -18,13 +18,12 @@ namespace Test_Logrocon.ViewModel
         Database1Entities dataEntities = new Database1Entities();
 
 
-        public CustomersViewModel()
-        {
-            _canExecute = true;
-        }
 
 
         private String _newOrderDescription;
+        /// <summary>
+        /// Descrition of new or existing Order
+        /// </summary>
         public String _NewOrderDescription
         {
             get { return _newOrderDescription; }
@@ -38,6 +37,9 @@ namespace Test_Logrocon.ViewModel
 
         //Selected Customer Name Binding
         private String _selectedName;
+        /// <summary>
+        /// Name of Selected Customer
+        /// </summary>
         public String _SelectedName
         {
             get { return _selectedName; }
@@ -51,18 +53,28 @@ namespace Test_Logrocon.ViewModel
 
         //Selected Customer Binding
         private Customers _selctedCust;
+        /// <summary>
+        /// Selected Customer Item
+        /// </summary>
         public Customers _selectedCustomer
         {
             get { return _selctedCust; }
             set
             {
                 this._selctedCust = value;
-                this._selectedName = value.Name;
+               if(value==null)
+                    this._selectedName = "";             
+               else
+                    this._selectedName = value.Name;
                 NotifyPropertyChanged("_selectedCustomer");
             }
         }
 
+        //Selected Ordere Binding
         private Orders _selectedOrd;
+        /// <summary>
+        /// Selected Order Item
+        /// </summary>
         public Orders _selectedOrder
         {
             get { return _selectedOrd; }
@@ -77,6 +89,9 @@ namespace Test_Logrocon.ViewModel
 
         //Customer list binding
         private ObservableCollection<Customers> _cust;
+        /// <summary>
+        /// List of all Customers
+        /// </summary>
         public ObservableCollection<Customers> _Customers
         {
             get { return this._cust; }
@@ -89,6 +104,9 @@ namespace Test_Logrocon.ViewModel
 
         //Orders Binding
         private ObservableCollection<Orders> _ords;
+        /// <summary>
+        /// List of all the Orders of the Selected Customer
+        /// </summary>
         public ObservableCollection<Orders> _Orders
         {
             get { return this._ords; }
@@ -99,9 +117,8 @@ namespace Test_Logrocon.ViewModel
             }
         }
 
-        //INotify
+        //INotify Implimentatin for binding
         public event PropertyChangedEventHandler PropertyChanged;
-
         private void NotifyPropertyChanged(string propertyName)
         {
             var e = PropertyChanged;
@@ -112,21 +129,13 @@ namespace Test_Logrocon.ViewModel
 
         }
 
-        //Comand to delete Customer 
-        private ICommand _deleteComand;
-        public ICommand DeleteComand
-        {
-            get
-            {
-                return _deleteComand ?? (_deleteComand = new ComandHandler(() => DeleteCustomer(), _canExecute));
-            }
-        }
-
-        private bool _canExecute;
+       /// <summary>
+       /// Delete selected customer
+       /// </summary>
         public void DeleteCustomer()
             {
             
-                //Delete all orders for customer
+              //Delete all orders for customer
             foreach (var order in _ords)
             {
                 Orders tempOrd = new Orders() { Number = order.Number };
@@ -148,7 +157,9 @@ namespace Test_Logrocon.ViewModel
 
             }
 
-        
+        /// <summary>
+        /// Delete Selected Order
+        /// </summary>
         public void DeleteOrder()
         {
             Orders tempOrd = new Orders() { Number = _selectedOrd.Number };
@@ -160,7 +171,9 @@ namespace Test_Logrocon.ViewModel
 
 
 
-        //Load all orders for selected customer
+        /// <summary>
+        /// Load all the orders of the Selected Customer from Data Base
+        /// </summary>
         public void LoadOrders()
         {
             ObservableCollection<Orders> orders = new ObservableCollection<Orders>();
@@ -195,7 +208,9 @@ namespace Test_Logrocon.ViewModel
 
 
 
-        //Load database into DataGrid
+        /// <summary>
+        /// Loadd all the customers from Data Base
+        /// </summary>
         public void LoadCustomers()
         {
             ObservableCollection<Customers> customers = new ObservableCollection<Customers>();
@@ -207,8 +222,6 @@ namespace Test_Logrocon.ViewModel
                    select new { customer.Id, customer.Name, customer.Address, customer.VIP };
 
            var a=  query.ToList();
-
-
 
             foreach (var cus in a)
             {
@@ -225,7 +238,9 @@ namespace Test_Logrocon.ViewModel
             _Customers = customers;
         }
 
-
+        /// <summary>
+        /// Add new Order Into Data Base and update Order List
+        /// </summary>
         public void AddOrder()
         {
             Orders tempOrd = new Orders
@@ -248,6 +263,9 @@ namespace Test_Logrocon.ViewModel
         }
 
 
+        /// <summary>
+        /// Preloads Existing Order Description for existing order
+        /// </summary>
         public void PreloadOrderDescription()
         {
             try
@@ -257,10 +275,13 @@ namespace Test_Logrocon.ViewModel
             catch { }
         }
 
+
+        /// <summary>
+        /// Modifies existing Ored in the Data Base and udpates list of orders
+        /// </summary>
         public void EditOrder()
         {
-            //_selectedOrder.Description = _newOrderDescription;
-           
+            
 
             Orders tempOrd = new Orders()
             {
@@ -286,32 +307,6 @@ namespace Test_Logrocon.ViewModel
 
 
     }
-
-
-
-    public class ComandHandler : ICommand
-    {
-        private Action _action;
-        private bool _canExecute;
-
-        public event EventHandler CanExecuteChanged;
-
-        public ComandHandler(Action action, bool canExecute)
-        {
-            _action = action;
-            _canExecute = canExecute;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute;
-        }
-
-        public void Execute(object parameter)
-        {
-            _action();
-        }
-    }
-
+    
 
 }
