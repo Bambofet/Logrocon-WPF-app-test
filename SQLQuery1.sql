@@ -1,0 +1,1 @@
+﻿insert into Customers (Name,Address,VIP) values ('Alex', 'Moscow', 1)

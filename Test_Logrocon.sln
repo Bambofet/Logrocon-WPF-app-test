@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26206.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_Logrocon", "Test_Logrocon\Test_Logrocon.csproj", "{9FB2BC33-7FA1-4661-AC8C-FE3E06DECF6C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A7365CA9-E858-4B1C-A3D1-DDD3B7B3A375}"
+	ProjectSection(SolutionItems) = preProject
+		AddOrder.sql = AddOrder.sql
+		SQLQuery1.sql = SQLQuery1.sql
+		SqlQuery_1.sql = SqlQuery_1.sql
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9FB2BC33-7FA1-4661-AC8C-FE3E06DECF6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FB2BC33-7FA1-4661-AC8C-FE3E06DECF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FB2BC33-7FA1-4661-AC8C-FE3E06DECF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FB2BC33-7FA1-4661-AC8C-FE3E06DECF6C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

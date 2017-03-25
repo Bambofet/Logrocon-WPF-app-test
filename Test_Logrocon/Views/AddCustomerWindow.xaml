@@ -1,0 +1,47 @@
+﻿<Window x:Class="Test_Logrocon.Views.AddCustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Test_Logrocon.Views"
+        mc:Ignorable="d"
+        Title="AddCustomerWindow" Height="441.176" Width="408.403">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="Background" Value="MistyRose"/>
+                    <Setter Property="ToolTip"  Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="130"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox  Text="{Binding UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Path=_CustomerName,ValidatesOnDataErrors=True}" 
+          x:Name="CustomerNameTextBox" HorizontalAlignment="Left" Height="23" Margin="10,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161" Grid.ColumnSpan="2">
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
+
+
+
+        <TextBlock x:Name="CustomerNameTextBlock" HorizontalAlignment="Left" Margin="10,36,0,0" TextWrapping="Wrap" Text="Customer Name" VerticalAlignment="Top" Height="16" Width="110"/>
+        <TextBlock x:Name="CustomerAddressTextBlock" HorizontalAlignment="Left" Margin="10,85,0,0" TextWrapping="Wrap" Text="Customer Address" VerticalAlignment="Top" Height="16" Width="97"/>
+        <CheckBox IsChecked="{Binding Path=_CustomerVip,Mode=TwoWay}" FlowDirection="RightToLeft" x:Name="VipCheckBox" Content="VIP Customer" HorizontalAlignment="Left" Margin="10,211,0,0" VerticalAlignment="Top" Height="15" Width="93"/>
+        <Button x:Name="AddButton" Content="Add" HorizontalAlignment="Left" Margin="21,289,0,0" VerticalAlignment="Top" Width="75" Click="AddButton_Click"/>
+        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="1" HorizontalAlignment="Left" Margin="37,289,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox Text="{Binding Path=_CustomerAddress,Mode=TwoWay}" 
+                 x:Name="CustomerAddressTextBox" HorizontalAlignment="Left" Height="100" Margin="10,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="380" Grid.ColumnSpan="2"/>
+
+    </Grid>
+</Window>

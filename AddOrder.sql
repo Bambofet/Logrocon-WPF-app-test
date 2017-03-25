@@ -1,0 +1,1 @@
+﻿insert into orders (Description,CustomerId) values ('Beer', 3);
